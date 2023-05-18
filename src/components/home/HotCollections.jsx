@@ -75,12 +75,12 @@ console.log(data)
                <div key={items?.id}>
              <div className="nft_coll">
                 <div className="nft_wrap">
-                  <Link to="/item-details">
+                  <Link to={`/item-details/${items?.nftId}`}>
                     <img src={items.nftImage} className="lazy img-fluid" alt="" />
                   </Link>
                 </div>
                 <div className="nft_coll_pp">
-                  <Link to="/author">
+                  <Link to={`/author/${items?.authorId}`}>
                     <img className="lazy pp-coll" src={items.authorImage} alt="" />
                   </Link>
                   <i className="fa fa-check"></i>
