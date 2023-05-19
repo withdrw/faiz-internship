@@ -99,7 +99,7 @@ console.log(item)
 
 { item && 
 
-<OwlCarousel className='owl-theme' loop nav items={4} dots={false} margin={14}>
+<OwlCarousel data-aos='fade-left' className='owl-theme' loop nav items={4} dots={false} margin={14}>
 
 
           {item?.map((news) => (
