@@ -2,20 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Timer from "../home/Timer";
 import axios from "axios";
+import Skeleton from "../UI/Skeleton";
 
 
 
 const ExploreItems = ({explore,setExplore}) => {
 
-const [price , setPrice ] = useState()
+  
+  const [price , setPrice ] = useState()
+  
+  
+  const [load , setLoad] = useState(8)
+  
+  
+  
+  
+  
 
-
-async function getitems() { 
-  await axios.get(price === "likes_high_to_low" ?  
-     'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=likes_high_to_low':  
-        price === "price_low_to_high" ? 'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_low_to_high':   
-          price === "price_high_to_low" ? 'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_high_to_low':  
-             'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore '     )  
+  
+  
+  
+  async function getitems() { 
+    await axios.get(price === "likes_high_to_low" ?  
+    'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=likes_high_to_low':  
+    price === "price_low_to_high" ? 'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_low_to_high':   
+    price === "price_high_to_low" ? 'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=price_high_to_low':  
+    'https://us-central1-nft-cloud-functions.cloudfunctions.net/explore '     )  
               .then((response)=>{  
                 setTimeout(() => {
                   
@@ -23,20 +35,20 @@ async function getitems() {
                   
                 }, 300);
               })
-
+              
 
 }
+
+useEffect(() => {
+  getitems()
+  setExplore(null)
   
-  useEffect(() => {
-    getitems()
-    setExplore(null)
   
-  
-  }, [price])
-  
+}, [price])
 
 
-  return (
+
+return (
     <>
       <div>
         <select id="filter-items" onChange={(e) => (setPrice(e.target.value)) } defaultValue="">
@@ -46,12 +58,14 @@ async function getitems() {
           <option value="likes_high_to_low">Most liked</option>
         </select>
       </div>
-      {explore?.map((item) => (
-        <div
+      
+
+        { explore ? explore?.slice(0,load).map((item) => (
+          <div
           key={item?.id}
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
           style={{ display: "block", backgroundSize: "cover" }}
-        >
+          >
           <div className="nft__item">
             <div className="author_list_pp">
               <Link
@@ -99,14 +113,35 @@ async function getitems() {
             </div>
           </div>
         </div>
-      ))}
-      <div className="col-md-12 text-center">
-        <Link to="" id="loadmore" className="btn-main lead">
+
+       )) : 
+       new Array(8).fill(0).map((_,index) => (
+
+
+         <div
+         key={index}
+         className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
+         style={{ display: "block", backgroundSize: "cover" }}
+         >
+          <Skeleton width={"100%"} height={400} ></Skeleton>
+         </div>
+         ))
+      }
+      { load < 16 && 
+
+        <div  className="col-md-12 text-center">
+        <Link onClick={() => setLoad(load + 4)} to="" id="loadmore" className="btn-main lead">
           Load more
         </Link>
       </div>
+      }
+
+     
+
+
+
     </>
   );
-};
+    };
 
 export default ExploreItems;

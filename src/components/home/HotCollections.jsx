@@ -66,7 +66,7 @@ console.log(data)
 
  {  data && 
 
-  <OwlCarousel className='owl-theme' loop nav items={4} dots={false} margin={14}>
+  <OwlCarousel data-aos='fade-right'  className='owl-theme' loop nav items={4} dots={false} margin={14}>
 
            {data?.map((items) => { 
              
