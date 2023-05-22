@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import AuthorImage from "../../images/author_thumbnail.jpg";
 import nftImage from "../../images/nftImage.jpg";
+import Skeleton from "../UI/Skeleton";
 
 const AuthorItems = ({author}) => {
 
@@ -16,9 +17,13 @@ const AuthorItems = ({author}) => {
       <div className="tab-1">
         <div className="row">
 
-          {author?.nftCollection.map((item, index) =>
+          { author ? author?.nftCollection.map((item, index) =>
 
-            <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
+            {
+              return (
+
+                
+                <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
               <div className="nft__item">
                 <div className="author_list_pp">
                   <Link to="">
@@ -64,7 +69,16 @@ const AuthorItems = ({author}) => {
                 </div>
               </div>
             </div>
-          )}
+        )
+        }
+        )
+        : 
+        new Array(8).fill(0).map((_,index) => (
+          <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
+          <Skeleton width={'100%'} height={400} ></Skeleton>
+        </div>
+        ))
+        }
         </div>
       </div>
     </div>
