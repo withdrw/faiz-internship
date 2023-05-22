@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Skeleton from "../UI/Skeleton";
 
 const TopSellers = () => {
 
@@ -60,7 +61,7 @@ const TopSellers = () => {
 
   
 
-              {sell?.map((sells) => (
+              {sell ? sell?.map((sells) => (
                 <li key={sells?.id}>
                 <div className="author_list_pp">
                 <Link to={`/author/${sells.authorId}`}>
@@ -77,7 +78,24 @@ const TopSellers = () => {
                 <span>{sells?.price} ETH</span>
                 </div>
                     </li>
-                    ))}
+                    
+                    )) : 
+                    new Array(12).fill(0).map((_,index) => (
+                      <li key={index}>
+                      <div className="author_list_pp">
+                      <Link to='/'>
+                     <Skeleton width={50} height={50} borderRadius={'50%'}></Skeleton>
+                      <i className="fa fa-check"></i>
+                      </Link>
+                      </div>
+                      <div className="author_list_info">
+                      <Link to= '/' ><Skeleton width={100} height={20}></Skeleton></Link>
+                      <span><Skeleton width={40} height={20}></Skeleton></span>
+                      </div>
+                          </li>
+                    ))
+                  } 
+                    
             </ol>
           </div>
         </div>

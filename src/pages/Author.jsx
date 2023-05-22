@@ -4,6 +4,7 @@ import AuthorItems from "../components/author/AuthorItems";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Aos from "aos";
+import Skeleton from "../components/UI/Skeleton";
 
 const Author = () => {
 
@@ -70,7 +71,9 @@ const Author = () => {
         <section aria-label="section">
           <div className="container">
             <div className="row">
-              <div className="col-md-12">
+              { author ? 
+
+                <div className="col-md-12">
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
@@ -100,7 +103,36 @@ const Author = () => {
                     </div>
                   </div>
                 </div>
+              </div>  
+              : 
+              <div className="col-md-12">
+                <div className="d_profile de-flex">
+                  <div className="de-flex-col">
+                    <div className="profile_avatar">
+                      <Skeleton width={150} height={150} borderRadius={'50%'}></Skeleton>
+
+                      <i className="fa fa-check"></i>
+                      <div className="profile_name">
+                        <h4>
+                          <Skeleton width={200}></Skeleton>
+                          <span className="profile_username"><Skeleton width={100}></Skeleton></span>
+                          <span id="wallet" className="profile_wallet">
+                           <Skeleton width={250}></Skeleton>
+                          </span>
+                          
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="profile_follow de-flex">
+                    <div className="de-flex-col">
+                      <div className="profile_follower"><Skeleton width={100}></Skeleton></div>
+                      <Skeleton width={150} height={40}></Skeleton>
+                    </div>
+                  </div>
+                </div>
               </div>
+              }
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
